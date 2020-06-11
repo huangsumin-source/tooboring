@@ -1,0 +1,98 @@
+git简介：
+	分布式版本控制系统，每个电脑里都有完整的版本库，中央服务器仅用于交换修改。
+创建版本库：
+	mkdir learngit
+	cd learngit
+	git init
+	则leargit目录变成git可以管理的仓库（目录下多了.git目录，该目录是git用来跟踪过管理版本库的
+添加文件到版本库：
+	git add readme.txt
+	git commit -m "commit message" (-m后面输入的是本次提交的说明
+	(所有版本控制系统只能跟踪文本文件的改动，不能跟踪二进制文件的改动，即只能知道二进制文件被修改了，但不知道具体改了啥
+版本回退：
+	git log 查看历史记录
+	git reset --hard HEAD^ 回退一个版本（HEAD表示当前版本，HEAD^表示上个版本
+	git reser --hard 版本号  回退到该版本号的版本
+	git reflog 记录每一次命令（如回退一个版本，找不到新的版本了，可用该命令查看版本号
+工作区和暂存区：
+	learngit 就是工作区
+	learngit 里面的.git目录就是版本库
+	版本库面有暂存区stage,和git为我们自动创建的第一个分支master, HEAD指针指向master
+	第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+	第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+	执行git commit就可以一次性把暂存区的所有修改提交到分支。
+撤销修改：
+	git checkout -- file可以丢弃工作区的修改
+	git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区
+删除文件：
+	如果工作区想要删除一个文件，并且已经删除了，git想要同步
+	git rm test.txt 
+	git commit -m "remove test.txt"
+	如果工作区删除了一个文件，但其实是误删，想要恢复
+	git checkout -- test.txt 即可把删除的文件恢复到最新版本
+	（突然发现checkout 既可以丢弃工作区的修改，也可以恢复删除的文件，其实checkout 就是用版本库的版本替换工作区的版本）
+远程仓库：
+	你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以需要在github上添加ssh key：略
+	使用 SSH 连接到 GitHub：https://help.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh
+	github上创建远程仓库：略
+	将本地上的仓库与远程仓库相关联，在leargit下运行命令：
+	 git remote add origin git@github.com:账户名/远程仓库名（如git remote add origin git@github.com:michaelliao/learngit.git
+	（添加后远程仓库名就是origin
+	将分支推送给到远程仓库：
+	 git push -u origin master （第一次需要-u 之后不用
+	从远程库克隆：如果从别人的仓库克隆，需要添加自己的SSH公钥到那上面
+	git clone git@github.com:账户名/远程仓库名（git clone git@github.com:michaelliao/gitskills.git
+分支管理：
+	查看当前分支：git branch
+	创建分支：git branch 分支名（如git branch dev
+	创建并切换分支：git switch -c 分支名（如git swich -c dev 
+	切换分支：git switch 分支名（如git switch dev
+	合并某分支到当前分支：git merge 分支名（如git merge dev
+	删除分支：git branch -d 分支名 （如git branch -d dev
+
+	合并某分支到当前分支：git merge 分支名（如git merge dev
+	上行功能仅用于创建dev后在dev上进行了修改并提交，但是master分支并没有修改，可以进行合并
+	但如果创建dev后在dev上进行了修改并提交，在master上也进行了修改并提交，会发生合并冲突
+	发生合并冲突则需要手动解决冲突，再提交，合并完成。
+	查看分支的合并情况：git log --graph --pretty=oneline --abbrev-commit
+	合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并：
+	git merge --no-ff -m "merge with no-ff" dev
+
+	Bug分支：
+	如你在dev分支上工作，但只工作了一半，工作区和暂存区的东西不想提交，但是master分支出现了bug，需要去修复，则需将dev的工作现场保存一下：
+	git stash：可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+	git stash list：查看保存的工作现场
+	工作现场恢复：一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+		      另一种方式是用git stash pop，恢复的同时把stash内容也删了
+	然后我在master上创建一个分支dev1修复bug，然后noff和并分支master和dev1。但是我dev分支是master之前有bug的时候分出来的，所以我dev上还是有bug。
+	所以我想把bug提交的修改“复制”到当前分支：git cherry-pick <commit>（如git cherry-pick 4c805e2<bug的commit
+	
+	如果是从远程仓库克隆仓库，Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin
+	查看远程仓库的信息：git remote -v
+	推送分支： git push origin master （git push 仓库名 分支名
+	抓取分支：
+		别人从远程仓库克隆只能看见master分支，如果想在dev上进行开发
+		需创建远程的dev分支到本地：git checkout -b dev origin/dev
+		时不时push:git push origin dev
+		
+		我也在dev上开发并push:git push origin dev 可能会有冲突
+		先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送：
+		git branch --set-upstream-to=origin/dev dev（先指定本地dev分支与远程origin/dev分支的链接
+		git pull (再pull
+		解决冲突
+		git push(再push
+	rebase:把提交整理成一条直线？？
+
+标签管理：
+	git tag <name>就可以给分支打一个新标签，默认标签是打在最新提交的commit上的
+	也可以通过git log --pretty=oneline --abbrev-commit找到历史commit，打上标签： git tag v0.9 f52c633 （git tag 标签名 commit号
+	git show <tagname>查看标签信息
+	创建带有说明的标签，用-a指定标签名，-m指定说明文字：git tag -a v0.1 -m "version 0.1 released" 1094adb
+	git show <tagname>可以看到说明文字
+
+	删除标签：git tag -d v0.1
+	推送一个远程标签：git push origin <tagname>
+	推送所有本地标签到远程： git push origin --tags
+	删除远程标签：先删除本地 git tag -d v0.9 再删除远程git push origin :refs/tags/v0.9
+	
+	
