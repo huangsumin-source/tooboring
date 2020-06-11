@@ -84,7 +84,11 @@ git简介：
 	rebase:把提交整理成一条直线？？
 	
 	
+<<<<<<< HEAD
 	删除标签：git tag -d v0.1  12345677897534
+=======
+	删除标签：git tag -d v0.1   1254323234234
+>>>>>>> update
 	推送一个远程标签：git push origin <tagname>
 	推送所有本地标签到远程： git push origin --tags
 	删除远程标签：先删除本地 git tag -d v0.9 再删除远程git push origin :refs/tags/v0.9
