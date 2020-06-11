@@ -82,25 +82,6 @@ git简介：
 		解决冲突
 		git push(再push
 	rebase:把提交整理成一条直线？？
-	
-	
-	删除标签：git tag -d v0.1
-	推送一个远程标签：git push origin <tagname>
-	推送所有本地标签到远程： git push origin --tags
-	删除远程标签：先删除本地 git tag -d v0.9 再删除远程git push origin :refs/tags/v0.9
-
-	删除标签：git tag -d v0.1
-	推送一个远程标签：git push origin <tagname>
-
-		我也在dev上开发并push:git push origin dev 可能会有冲突
-		先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送：
-		git branch --set-upstream-to=origin/dev dev（先指定本地dev分支与远程origin/dev分支的链接
-		git pull (再pull
-		解决冲突
-		git push(再push
-	rebase:把提交整理成一条直线？？
-	推送所有本地标签到远程： git push origin --tags
-	删除远程标签：先删除本地 git tag -d v0.9 再删除远程git push origin :refs/tags/v0.9
 
 标签管理：
 	git tag <name>就可以给分支打一个新标签，默认标签是打在最新提交的commit上的
