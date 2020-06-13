@@ -4,8 +4,8 @@
     android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -15,7 +15,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/button"
+        android:layout_alignLeft="@id/textview"
         android:layout_alignParentTop="true"
         android:text="TextView" />
 
@@ -23,7 +23,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/button"
+        android:layout_alignLeft="@id/textview"
         android:layout_alignParentBottom ="true"
         android:text="TextView" />
 

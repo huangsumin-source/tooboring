@@ -5,10 +5,10 @@ public class CellData {
         this.tv1 = tv1;
         this.tv2 = tv2;
         this.tv3 = tv3;
-        this.btn = btn;
+        this.tv = tv4;
     }
     public String tv1 = "tv1";
     public String tv2 = "tv2";
     public String tv3 = "tv3";
-    public String btn = "btn";
+    public String tv = "tv";
 }

@@ -11,13 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        rv = new RecyclerView(this);
-        setContentView(rv);
+        RecyclerView rv = findViewById(R.id.my_recycler_view);
+        setContentView(R.layout.activity_main);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(new RecyclerView.Adapter() {
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 vh.getTv1().setText(cd.tv1);
                 vh.getTv2().setText(cd.tv2);
                 vh.getTv3().setText(cd.tv3);
-                vh.getBtn().setText(cd.btn);
+                vh.getTv().setText(cd.tv);
             }
 
             @Override

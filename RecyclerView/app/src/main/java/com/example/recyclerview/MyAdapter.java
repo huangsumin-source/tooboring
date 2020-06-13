@@ -7,16 +7,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 class MyAdapter extends RecyclerView.ViewHolder{
-    private View tv;
-    private TextView tv1, tv2, tv3;
-    private Button btn;
+    private TextView tv1, tv2, tv3, tv;
     public MyAdapter(View root){
         super(root);
         tv1 = root.findViewById(R.id.textView1);
         tv2 = root.findViewById(R.id.textView2);
         tv3 = root.findViewById(R.id.textView3);
-        btn = root.findViewById(R.id.button);
+        tv = root.findViewById(R.id.textview);
     }
+
+    public TextView getTv() { return tv; }
 
     public TextView getTv1() {
         return tv1;
@@ -28,9 +28,5 @@ class MyAdapter extends RecyclerView.ViewHolder{
 
     public TextView getTv3() {
         return tv3;
-    }
-
-    public Button getBtn() {
-        return btn;
     }
 }
